@@ -20,6 +20,7 @@ def Main(input_path):
     lines = lines[2:]
 
     libs = []
+    
 
     for b in range(B):
         utils.books.append(Book(scores[b]))
@@ -29,18 +30,18 @@ def Main(input_path):
         lib = Library(lines[i].split() + [i/2])
         lib.add_ids(lines[i+1].split())  
         libs += [lib]
+        lib.sort_books()
         n_libs += 1
 
-
-    
     final_libs = []
     len_final = 0
 
+    lib_ids = range(n_libs)
+
     while D > 0:
         for lib in libs:
-            lib.sort_books()
             lib.calc_value(D)
-        libs.sort(reverse=True, key=lambda lib: lib.value)
+        lib_ids.sort(reverse=True, key=lambda id: libs[id].value)
         while libs and libs[0].time>=D:
             libs=libs[1:]
         if not libs:
@@ -53,7 +54,8 @@ def Main(input_path):
         # update books score already sent to zero
         for book_id in lib.ids[:books_to_send]:
             utils.books[book_id].score = 0
-
+            for ref in utils.books[book_id].references:
+                libs_constant[ref[0]].nullify(ref[1],book_id)
 
         D = D - lib.time
         len_final += 1

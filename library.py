@@ -23,6 +23,13 @@ class Library:
         books_to_send=min((D-self.time)*self.books_p_day,self.n_books)
         self.value = self.total_score(books_to_send)
 
+    def nullify(self, idx, book_id):
+        # self.null_idx = max((self.null_idx - 1), 0)
+        # self.ids[idx], self.ids[self.null_idx] = self.ids[self.null_idx], self.ids[idx]
+        ids.remove(idx)
+        ids.append(book_id)
+        
+
     # def toString(self):
     #     ship_books = len(self.ids)
 
@@ -41,6 +48,8 @@ class Library:
         
     def sort_books(self):
         self.ids.sort(reverse=True, key=lambda id: utils.books[id].score)
+        for i in range(n_books):
+            utils.books[ids[i]].add_reference((self.id, i)) 
 
 
     # D - signup
