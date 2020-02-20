@@ -20,6 +20,7 @@ def Main(input_path):
     lines = lines[2:]
 
     libs = []
+    n_libs = 0
 
     for b in range(B):
         utils.books.append(Book(scores[b]))
@@ -30,19 +31,20 @@ def Main(input_path):
         lib.calc_value()
         lib.sort_books()
         libs += [lib]
+        n_libs += 1
 
 
     libs.sort(reverse=True, key=lambda lib: lib.value)
     final_libs = []
     i = 0
-    while D > 0 and i < len(libs):
+    while D > 0 and i < n_libs:
         lib = libs[i]
         books_to_send = min((D - lib.time)*lib.books_p_day, lib.n_books)
         final_libs += [{"ship_books": books_to_send, "id": lib.id, "books": lib.ids[:books_to_send]}]
         D = D - lib.time
         i += 1
 
-    print utils.output(final_libs)
+    print utils.output(final_libs, n_libs)
 
 
 

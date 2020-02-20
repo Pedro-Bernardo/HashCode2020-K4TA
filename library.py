@@ -22,21 +22,21 @@ class Library:
     def calc_value(self):
         self.value = (self.total_score(utils.books)/self.n_books)*self.books_p_day
 
-    def toString(self):
-        ship_books = len(self.ids)
+    # def toString(self):
+    #     ship_books = len(self.ids)
 
-        # assume self.ids eh os ids dos livros para dar ship
-        output = "{} {}\n".format(str(self.id), ship_books)
+    #     # assume self.ids eh os ids dos livros para dar ship
+    #     output = "{} {}\n".format(str(self.id), ship_books)
         
-        #print book ids that will be shipped
-        for idx, id in enumerate(self.ids):
-            output += str(id)
-            if idx != ship_books - 1:
-                output += " "
+    #     #print book ids that will be shipped
+    #     for idx, id in enumerate(self.ids):
+    #         output += str(id)
+    #         if idx != ship_books - 1:
+    #             output += " "
         
-        output += "\n"
+    #     output += "\n"
 
-        return output
+    #     return output
         
     def sort_books(self):
         self.ids.sort(reverse=True, key=lambda id: utils.books[id].score)

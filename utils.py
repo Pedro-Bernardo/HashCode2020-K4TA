@@ -46,10 +46,9 @@ def orientationDic(photos):
     return dic
 
 
-def output(libs):
+def output(libs, n_libs):
     # {"ship_books": books_to_send, "id": lib.id, "books": lib.ids[:books_to_send]}
     output = ""
-    n_libs = len(libs)
 
     #number of libs
     output += str(n_libs) + "\n"
