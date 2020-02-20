@@ -49,6 +49,12 @@ def Main(input_path):
             continue
 
         final_libs += [{"ship_books": books_to_send, "id": lib.id, "books": lib.ids[:books_to_send]}]
+
+        # update books score already sent to zero
+        for book_id in lib.ids[:books_to_send]:
+            utils.books[book_id].score = 0
+
+
         D = D - lib.time
         i += 1
         len_final += 1
