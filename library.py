@@ -10,17 +10,18 @@ class Library:
         self.ids = []
         self.value = 0
 
-    def total_score(self, B):
+    def total_score(self, B,books_to_send):
         total = 0
-        for i in self.ids:
+        for i in range(books_to_send):
             total += B[i].score
         return total
 
     def add_ids(self, ids):
         self.ids = map(lambda x: int(x), ids)
 
-    def calc_value(self):
-        self.value = (self.total_score(utils.books)/self.n_books)*self.books_p_day
+    def calc_value(self,D):
+        books_to_send=(D-self.time)*self.books_p_day
+        self.value = self.total_score(utils.books,books_to_send)
 
     # def toString(self):
     #     ship_books = len(self.ids)
