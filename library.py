@@ -68,6 +68,7 @@ class Library:
                 continue
             add_to(self.ids[i])
             i +=1
+        return books_to_ret
 
     def sort_books(self):
         self.ids.sort(reverse=True, key=lambda id: utils.books[id].score)
