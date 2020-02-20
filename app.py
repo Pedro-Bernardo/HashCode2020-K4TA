@@ -37,9 +37,21 @@ def Main(input_path):
     len_final = 0
 
     while D > 0:
+        if not libs:
+            break
+        media_score=0
+        for b in utils.books:
+            media_score+=b.score
+        media_score=media_score/B
+        media_time=0
+        c=0
+        for lib in libs:
+            media_time+=lib.time
+            c+=1
+        media_time=media_time/c
         for lib in libs:
             lib.sort_books()
-            lib.calc_value(D)
+            lib.calc_value(D,media_score,media_time)
         libs.sort(reverse=True, key=lambda lib: lib.value)
         while libs and libs[0].time>=D:
             libs=libs[1:]
