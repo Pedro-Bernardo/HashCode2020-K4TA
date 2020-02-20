@@ -7,6 +7,20 @@ def parseInput(path):
     with open(path, 'r') as file:
         lines = file.readlines()[1:]
     
+    B = int(l[0])
+    L = int(l[1])
+    D = int(l[2])
+    scores = lines[3].split()
+
+    lines = lines[4:]
+    libs = []
+
+    for i in range(0, 2*L, 2):
+        lib = Library(line[i].split())
+        lib.add_ids(line[i+1].split())
+        libs.insert(lib, 0)
+    
+
     for l in lines:
         l = l[:-1]
         tokens = l.split(' ')
@@ -15,10 +29,8 @@ def parseInput(path):
     return photos
 
 
-def outputSlides(outpath, slideshow):
-    with open(outpath, 'w') as out:
-        out.write(slideshow.toString())
-
+def output(outpath, slideshow):
+    pass
 
 def photoList(input_data):
     for i in range(len(input_data)):
