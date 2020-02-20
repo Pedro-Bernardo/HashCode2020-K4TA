@@ -21,18 +21,20 @@ class Library:
         self.value = (self.total_score(B)/self.n_books)*self.books_p_day
 
     def toString(self):
-
         ship_books = len(self.ids)
+
         # assume self.ids eh os ids dos livros para dar ship
-        output = "{} {}".format(str(self.id), ship_books)
+        output = "{} {}\n".format(str(self.id), ship_books)
         
+        #print book ids that will be shipped
         for idx, id in enumerate(self.ids):
-            if idx == ship_books - 1:
             output += str(id)
+            if idx != ship_books - 1:
+                output += " "
+        
+        output += "\n"
 
-
-
-        return ""
+        return output
 
     # D - signup
 
