@@ -25,6 +25,7 @@ def Main(input_path):
         utils.books.append(Book(scores[b]))
 
     n_libs = 0
+    
     for i in range(0, 2*L, 2):
         lib = Library(lines[i].split() + [i/2])
         lib.add_ids(lines[i+1].split())  
@@ -40,18 +41,22 @@ def Main(input_path):
         if not libs:
             break
         media_score=0
+        
         for b in utils.books:
             media_score+=b.score
         media_score=media_score/B
         media_time=0
+        media_books=0
         c=0
         for lib in libs:
             media_time+=lib.time
+            media_books+=lib.books_p_day
             c+=1
+        media_books=media_books/c
         media_time=media_time/c
         for lib in libs:
             lib.sort_books()
-            lib.calc_value(D,media_score,media_time)
+            lib.calc_value(D,media_score,media_time,media_books)
         libs.sort(reverse=True, key=lambda lib: lib.value)
         while libs and libs[0].time>=D:
             libs=libs[1:]
