@@ -20,8 +20,10 @@ class Library:
     def calc_value(self, B):
         self.value = (total_score(B)/n_books)*books_p_day
 
+    def sort_books(self):
+        self.ids.sort(reverse=True, key=self.comparator)
 
+    def comparator(id):
+        return books[id].score
 
     # D - signup
-
-    
