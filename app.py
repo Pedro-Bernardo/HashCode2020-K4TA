@@ -37,7 +37,13 @@ def Main(input_path):
     i = 0
     while D > 0 and i < len(libs):
         lib = libs[i]
-        books_to_send = min((D - lib.time)*lib.books_p_day, lib.n_books)
+        # optimize
+        if lib.time < D:
+            books_to_send = min((D - lib.time)*lib.books_p_day, lib.n_books)
+        else:
+            i += 1
+            continue
+
         final_libs += [{"ship_books": books_to_send, "id": lib.id, "books": lib.ids[:books_to_send]}]
         D = D - lib.time
         i += 1
