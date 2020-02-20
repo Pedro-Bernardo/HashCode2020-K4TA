@@ -39,6 +39,18 @@ def Main(input_path):
     lib_ids = range(n_libs)
 
     while D > 0:
+        if not libs:
+            break
+        media_score=0
+        for b in utils.books:
+            media_score+=b.score
+        media_score=media_score/B
+        media_time=0
+        c=0
+        for lib in libs:
+            media_time+=lib.time
+            c+=1
+        media_time=media_time/c
         for lib in libs:
             lib.calc_value(D)
         lib_ids.sort(reverse=True, key=lambda id: libs[id].value)

@@ -19,9 +19,9 @@ class Library:
     def add_ids(self, ids):
         self.ids = map(lambda x: int(x), ids)
 
-    def calc_value(self,D):
+    def calc_value(self,D,media_score,media_time):
         books_to_send=min((D-self.time)*self.books_p_day,self.n_books)
-        self.value = self.total_score(books_to_send)
+        self.value = self.total_score(books_to_send)-(self.time-media_time)*media_score
 
     def nullify(self, idx, book_id):
         # self.null_idx = max((self.null_idx - 1), 0)
