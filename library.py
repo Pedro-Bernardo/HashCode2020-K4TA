@@ -20,7 +20,19 @@ class Library:
     def calc_value(self, B):
         self.value = (total_score(B)/n_books)*books_p_day
 
+    def toString(self):
 
+        ship_books = len(self.ids)
+        # assume self.ids eh os ids dos livros para dar ship
+        output = "{} {}".format(str(self.id), ship_books)
+        
+        for idx, id in enumerate(self.ids):
+            if idx == ship_books - 1:
+            output += str(id)
+
+
+
+        return ""
 
     # D - signup
 
