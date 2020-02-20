@@ -36,14 +36,14 @@ def Main(input_path):
     final_libs = []
     len_final = 0
 
-    while D > 0 and i < n_libs:
-        for i in range(n_libs):
-            libs[i].sort_books()
-            libs[i].calc_value(D)
+    while D > 0:
+        for lib in libs:
+            lib.sort_books()
+            lib.calc_value(D)
         libs.sort(reverse=True, key=lambda lib: lib.value)
-        while libs.get(0, None) != None and libs[0].time>=D:
+        while libs and libs[0].time>=D:
             libs=libs[1:]
-        else:
+        if not libs:
             break
         lib=libs[0]
         libs=libs[1:]
