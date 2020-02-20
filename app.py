@@ -39,7 +39,7 @@ def Main(input_path):
     lib_ids = range(n_libs)
 
     while D > 0:
-        if not libs:
+        if not lib_ids:
             break
         media_score=0
         for b in utils.books:
@@ -52,22 +52,22 @@ def Main(input_path):
             c+=1
         media_time=media_time/c
         for lib in libs:
-            lib.calc_value(D)
+            lib.calc_value(D, media_score, media_time)
         lib_ids.sort(reverse=True, key=lambda id: libs[id].value)
-        while libs and libs[0].time>=D:
-            libs=libs[1:]
-        if not libs:
+        while lib_ids and libs[lib_ids[0]].time>=D:
+            lib_ids=lib_ids[1:]
+        if not lib_ids:
             break
-        lib=libs[0]
-        libs=libs[1:]
+        lib=libs[lib_ids[0]]
+        lib_ids=lib_ids[1:]
         books_to_send = min((D - lib.time)*lib.books_p_day, lib.n_books)
-        final_libs += [{"ship_books": books_to_send, "id": lib.id, "books": lib.ids[:books_to_send]}]
+        final_libs += [{"ship_books": books_to_send, "id": lib.id, "books": lib.select_books(books_to_send)}]
 
         # update books score already sent to zero
         for book_id in lib.ids[:books_to_send]:
             utils.books[book_id].score = 0
             for ref in utils.books[book_id].references:
-                libs_constant[ref[0]].nullify(ref[1],book_id)
+                libs[ref[0]].nullify(ref[1],book_id)
 
         D = D - lib.time
         len_final += 1

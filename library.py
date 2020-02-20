@@ -12,8 +12,16 @@ class Library:
 
     def total_score(self,books_to_send):
         total = 0
-        for i in range(books_to_send):
+        limit = books_to_send
+        i = 0
+        while i < limit:
+            if self.ids[i] < 0:
+                i += 1
+                limit += 1
+                continue
             total += utils.books[self.ids[i]].score
+            i +=1
+
         return total
 
     def add_ids(self, ids):
@@ -26,8 +34,10 @@ class Library:
     def nullify(self, idx, book_id):
         # self.null_idx = max((self.null_idx - 1), 0)
         # self.ids[idx], self.ids[self.null_idx] = self.ids[self.null_idx], self.ids[idx]
-        ids.remove(idx)
-        ids.append(book_id)
+        # del self.ids[idx]
+        # self.ids.append(book_id)
+        self.ids[idx] = -book_id
+        self.n_books -= 1
         
 
     # def toString(self):
@@ -46,10 +56,20 @@ class Library:
 
     #     return output
         
+    def select_books(self, limit):
+        i = 0
+        books_to_ret = []
+        add_to = books_to_ret.append
+
+        while i < limit:
+            if self.ids[i] < 0:
+                i += 1
+                limit += 1
+                continue
+            add_to(self.ids[i])
+            i +=1
+
     def sort_books(self):
         self.ids.sort(reverse=True, key=lambda id: utils.books[id].score)
-        for i in range(n_books):
-            utils.books[ids[i]].add_reference((self.id, i)) 
-
-
-    # D - signup
+        for i in range(self.n_books):
+            utils.books[self.ids[i]].add_reference((self.id, i)) 
