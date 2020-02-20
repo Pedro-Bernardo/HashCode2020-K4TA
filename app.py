@@ -27,30 +27,29 @@ def Main(input_path):
     n_libs = 0
     for i in range(0, 2*L, 2):
         lib = Library(lines[i].split() + [i/2])
-        lib.add_ids(lines[i+1].split())
-        lib.calc_value()
-        lib.sort_books()
+        lib.add_ids(lines[i+1].split())  
         libs += [lib]
         n_libs += 1
 
 
-    libs.sort(reverse=True, key=lambda lib: lib.value)
+    
     final_libs = []
     len_final = 0
 
-    i = 0
     while D > 0 and i < n_libs:
-        lib = libs[i]
-        # optimize
-        if lib.time < D:
-            books_to_send = min((D - lib.time)*lib.books_p_day, lib.n_books)
+        for i in range(n_libs):
+            libs[i].sort_books()
+            libs[i].calc_value(D)
+        libs.sort(reverse=True, key=lambda lib: lib.value)
+        while libs.get(0, None) != None and libs[0].time>=D:
+            libs=libs[1:]
         else:
-            i += 1
-            continue
-
+            break
+        lib=libs[0]
+        libs=libs[1:]
+        books_to_send = min((D - lib.time)*lib.books_p_day, lib.n_books)
         final_libs += [{"ship_books": books_to_send, "id": lib.id, "books": lib.ids[:books_to_send]}]
         D = D - lib.time
-        i += 1
         len_final += 1
 
     print utils.output(final_libs, len_final)
