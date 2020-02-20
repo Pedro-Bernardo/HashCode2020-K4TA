@@ -1,5 +1,6 @@
 class Library:
     def __init__(self, parameters):
+        self.id = parameters[3]
         self.n_books = parameters[0]
         # time in days 0 -> D-1
         self.time = parameters[1]
