@@ -29,8 +29,6 @@ def parseInput(path):
     return photos
 
 
-def output(outpath, slideshow):
-    pass
 
 def photoList(input_data):
     for i in range(len(input_data)):
@@ -49,13 +47,24 @@ def orientationDic(photos):
 
 
 def output(libs):
+    # {"ship_books": books_to_send, "id": lib.id, "books": lib.ids[:books_to_send]}
     output = ""
     n_libs = len(libs)
 
     #number of libs
     output += str(n_libs) + "\n"
     for lib in libs:
-        output += lib.toString()
+        # assume self.ids eh os ids dos livros para dar ship
+        output += "{} {}\n".format(str(lib['id']), str(lib['ship_books']))
+        
+        #print book ids that will be shipped
+        for idx, id in enumerate(lib['books']):
+            output += str(id)
+            if idx != lib['ship_books'] - 1:
+                output += " "
+        
+        output += "\n"
+
     
     return output
 

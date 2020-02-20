@@ -39,9 +39,7 @@ class Library:
         return output
         
     def sort_books(self):
-        self.ids.sort(reverse=True, key=self.comparator)
+        self.ids.sort(reverse=True, key=lambda id: utils.books[id].score)
 
-    def comparator(id):
-        return books[id].score
 
     # D - signup
