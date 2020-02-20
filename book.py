@@ -2,7 +2,7 @@
 
 class Book:
     def __init__(self, score):
-        self.score = score
+        self.score = int(score)
 
     def toString(self):
         # if len(self.idPhotos)==2:
