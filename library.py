@@ -1,3 +1,5 @@
+import utils
+
 class Library:
     def __init__(self, parameters):
         self.id = int(parameters[3])
@@ -17,8 +19,8 @@ class Library:
     def add_ids(self, ids):
         self.ids = map(lambda x: int(x), ids)
 
-    def calc_value(self, B):
-        self.value = (self.total_score(B)/self.n_books)*self.books_p_day
+    def calc_value(self):
+        self.value = (self.total_score(utils.books)/self.n_books)*self.books_p_day
 
     def toString(self):
         ship_books = len(self.ids)
@@ -35,7 +37,11 @@ class Library:
         output += "\n"
 
         return output
+        
+    def sort_books(self):
+        self.ids.sort(reverse=True, key=self.comparator)
+
+    def comparator(id):
+        return books[id].score
 
     # D - signup
-
-    

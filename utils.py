@@ -1,4 +1,4 @@
-
+books = []
 
 def parseInput(path):
     photos = []
@@ -52,10 +52,10 @@ def output(libs):
     output = ""
     n_libs = len(libs)
 
-
     #number of libs
     output += str(n_libs) + "\n"
     for lib in libs:
         output += lib.toString()
     
     return output
+
