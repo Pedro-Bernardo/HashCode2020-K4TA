@@ -20,6 +20,7 @@ def Main(input_path):
     lines = lines[2:]
 
     libs = []
+    
 
     for b in range(B):
         utils.books.append(Book(scores[b]))
@@ -30,15 +31,16 @@ def Main(input_path):
         lib = Library(lines[i].split() + [i/2])
         lib.add_ids(lines[i+1].split())  
         libs += [lib]
+        lib.sort_books()
         n_libs += 1
 
-
-    
     final_libs = []
     len_final = 0
 
+    lib_ids = range(n_libs)
+
     while D > 0:
-        if not libs:
+        if not lib_ids:
             break
         media_score=0
         
@@ -62,15 +64,16 @@ def Main(input_path):
             libs=libs[1:]
         if not libs:
             break
-        lib=libs[0]
-        libs=libs[1:]
+        lib=libs[lib_ids[0]]
+        lib_ids=lib_ids[1:]
         books_to_send = min((D - lib.time)*lib.books_p_day, lib.n_books)
-        final_libs += [{"ship_books": books_to_send, "id": lib.id, "books": lib.ids[:books_to_send]}]
+        final_libs += [{"ship_books": books_to_send, "id": lib.id, "books": lib.select_books(books_to_send)}]
 
         # update books score already sent to zero
         for book_id in lib.ids[:books_to_send]:
             utils.books[book_id].score = 0
-
+            for ref in utils.books[book_id].references:
+                libs[ref[0]].nullify(ref[1],book_id)
 
         D = D - lib.time
         len_final += 1
