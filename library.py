@@ -21,7 +21,7 @@ class Library:
 
     def calc_value(self,D,media_score,media_time,media_books):
         books_to_send=min((D-self.time)*self.books_p_day,self.n_books)
-        self.value = self.total_score(books_to_send)-(self.time-media_time)*media_score*media_books
+        self.value = self.total_score(books_to_send)-(self.time-media_time)*media_score*media_books*10
 
     # def toString(self):
     #     ship_books = len(self.ids)
